@@ -1,4 +1,8 @@
 apply plugin: 'com.android.application'
+apply plugin: 'realm-android'
+realm {
+    syncEnabled = true;
+}
 
 android {
     signingConfigs {
@@ -91,6 +95,11 @@ android {
             }
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -100,5 +109,19 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation 'com.google.android.material:material:1.0.0'
+
+    //MultiDex
+    implementation 'com.android.support:multidex:1.0.2'
+    //butterknife
+    implementation 'com.jakewharton:butterknife:10.2.0'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.0'
+    //immersionbar
+    implementation 'com.gyf.immersionbar:immersionbar:3.0.0'
+    //工具类
+    implementation 'com.blankj:utilcodex:1.26.0'
+    //network
+    implementation 'com.github.395751618:testmodule:v1.0.6'
+    //baidu tts
     implementation files('libs/com.baidu.tts_2.6.1.106.20191213_e6dcd95.jar')
 }
