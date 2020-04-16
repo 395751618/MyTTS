@@ -1,6 +1,20 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        debug {
+            storeFile file('/Users/mindertech/android/workspace/MyTTS/key_store/key.jks')
+            storePassword 'xiangxia'
+            keyAlias = 'xiangxia'
+            keyPassword 'xiangxia'
+        }
+        release {
+            storeFile file('/Users/mindertech/android/workspace/MyTTS/key_store/key.jks')
+            storePassword 'xiangxia'
+            keyAlias = 'xiangxia'
+            keyPassword 'xiangxia'
+        }
+    }
     compileSdkVersion 29
     buildToolsVersion "29.0.2"
     defaultConfig {
@@ -12,9 +26,69 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
-        release {
+        develop {
+            // 不显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            applicationIdSuffix 'dev'
+            versionNameSuffix '-dev'
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources false
+            // 是否进行混淆
+            minifyEnabled true
+            // 混淆文件的位置
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+            buildConfigField "Integer", "type", "1"
+            buildConfigField "String", "channel", "\"debug\""
+            //添加的内容
+            lintOptions {
+                checkReleaseBuilds false
+                abortOnError false
+            }
+        }
+
+        debug {
+            // 显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            versionNameSuffix "-debug"
             minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            // 混淆文件的位置
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            zipAlignEnabled false
+            shrinkResources false
+            signingConfig signingConfigs.debug
+            buildConfigField "Integer", "type", "0"
+            buildConfigField "String", "channel", "\"debug\""
+
+            //添加的内容
+            lintOptions {
+                checkReleaseBuilds false
+                abortOnError false
+            }
+        }
+
+        release {
+            // 不显示Log
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+            applicationIdSuffix 'release'
+            versionNameSuffix '-release'
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources false
+            // 是否进行混淆
+            minifyEnabled true
+            // 混淆文件的位置
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+            buildConfigField "Integer", "type", "2"
+            buildConfigField "String", "channel", "\"release\""
+
+            //添加的内容
+            lintOptions {
+                checkReleaseBuilds false
+                abortOnError false
+            }
         }
     }
 }
