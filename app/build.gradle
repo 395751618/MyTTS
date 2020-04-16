@@ -100,4 +100,5 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation files('libs/com.baidu.tts_2.6.1.106.20191213_e6dcd95.jar')
 }
